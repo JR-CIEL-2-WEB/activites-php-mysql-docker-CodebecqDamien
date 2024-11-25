@@ -1,5 +1,5 @@
 <?php 
-    $note_global = array(2,19,15,8,12,16,20,14,17,13);
+    $note_global = array(2,19,15,8,12,16,20,14,17,13); #2,8,12,13,14,15,16,17,19,20
     $moyenne = 0;
 
     function calcul_moyenne($note_global){

@@ -82,22 +82,14 @@ if (isset($_POST['t'])) {
         // Fonction pour envoyer le tableau au serveur
         function sendData() {
             $.ajax({
-                url: 'https://61f47b00-9496-420c-98a5-40c48a9c0bb5.mock.pstmn.io', // URL avec le bon endpoint
+                url: '', // Envoie au même fichier
                 method: 'POST',
-                data: JSON.stringify({ t: tableau }), // Envoi du tableau sous forme JSON
-                contentType: 'application/json', // Indique que les données sont envoyées en JSON
-                dataType: 'json', // Le type de la réponse attendue est JSON
+                data: {t: tableau}, // Envoi du tableau sous forme de POST
+                dataType: 'json',
                 success: function(response) {
                     console.log('Réponse du serveur:', response);
-                    // Afficher le JSON reçu dans le DOM
                     document.getElementById('result').innerHTML = `JSON reçu : ${JSON.stringify(response)}`;
-                    
-                    // Vérifier si la médiane est présente dans la réponse
-                    if (response.median !== undefined) {
-                        document.getElementById('mediane').innerHTML = `Médiane : ${response.median}`;
-                    } else {
-                        console.error('La médiane n\'est pas présente dans la réponse.');
-                    }
+                    document.getElementById('mediane').innerHTML = `Médiane : ${response.median}`;
                 },
                 error: function(err) {
                     console.error('Erreur:', err);

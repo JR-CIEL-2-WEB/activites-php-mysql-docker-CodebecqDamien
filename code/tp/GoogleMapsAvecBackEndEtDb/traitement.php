@@ -1,13 +1,13 @@
 <?php
 // Paramètres de connexion à la base de données
-$host = 'localhost'; // Adresse du serveur MySQL
+$host = 'activites-php-mysql-docker-codebecqdamien-mysql-1'; // Adresse du serveur MySQL
 $port = 3306; // Port de votre serveur MySQL
 $dbname = 'appdb'; // Nom de la base de données
 $user = 'user'; // Utilisateur MySQL (par défaut 'root')
 $password = 'password'; // Mot de passe MySQL (laisser vide si pas de mot de passe)
 
 // Connexion à la base de données
-$conn = new mysqli('activites-php-mysql-docker-codebecqdamien-mysql-1', 'user', 'password', 'appdb', 3306);
+$conn = new mysqli($host, $user, $password, $dbname,$port);
 
 
 // Vérifier la connexion

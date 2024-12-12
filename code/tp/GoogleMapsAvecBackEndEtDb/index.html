@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Maps avec Sélection de Course</title>
+    <style>
+        /* Toujours définir la hauteur de la carte explicitement */
+        #map {
+            height: 80%;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #course-select {
+            margin: 20px;
+        }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7Y32T_PJHZxYcK3BJYJFNwSl6cuvLXpo&callback=initMap" async defer></script>
+</head>
+<body>
+
+<h1>Choisissez une course</h1>
+<select id="course-select">
+    <option value="">Sélectionnez une course</option>
+    <option value="1">Course 1</option>
+    <option value="2">Course 2</option>
+    <option value="3">Course 3</option>
+</select>
+
+<div id="map"></div>
+
+<script>
+    let currentInfoWindow = null;
+    let map;
+    let markers = [];
+    let polyline;
+
+    // Fonction pour initialiser la carte
+    function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 14,
+            center: { lat: 48.9599, lng: 2.5436 } // Villepinte, vous pouvez ajuster cela en fonction de vos besoins
+        });
+
+        // Ajouter un écouteur d'événements sur le menu déroulant pour charger les données de la course
+        document.getElementById('course-select').addEventListener('change', function () {
+            const selectedCourseId = this.value;
+
+            if (selectedCourseId) {
+                // Appeler traitement.php avec l'ID de la course sélectionnée
+                fetch(`traitement.php?id=${selectedCourseId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            console.error(data.error);
+                        } else {
+                            // Effacer les anciens marqueurs
+                            clearMarkers();
+
+                            // Ajouter les nouveaux marqueurs
+                            addMarkers(data.markers);
+
+                            // Centrer la carte sur les nouveaux marqueurs
+                            centerMapOnMarkers(data.markers);
+
+                            // Dessiner une polyligne reliant les marqueurs
+                            drawPolyline(data.markers);
+                        }
+                    })
+                    .catch(error => console.error('Erreur:', error));
+            }
+        });
+    }
+
+    // Fonction pour ajouter des marqueurs à la carte
+    function addMarkers(markersData) {
+        markersData.forEach(markerData => {
+            const position = { lat: markerData.lat, lng: markerData.lng };
+
+            const marker = new google.maps.Marker({
+                position: position,
+                map: map,
+                title: `Marqueur (${markerData.lat}, ${markerData.lng})`
+            });
+
+            markers.push(marker); // Ajouter ce marqueur à la liste des marqueurs
+
+            const infowindow = new google.maps.InfoWindow({
+                content: markerData.content, // Utiliser le contenu du JSON
+                ariaLabel: `Marqueur`
+            });
+
+            marker.addListener("click", () => {
+                if (currentInfoWindow) {
+                    currentInfoWindow.close();
+                }
+                infowindow.open(map, marker);
+                currentInfoWindow = infowindow;
+            });
+        });
+    }
+
+    // Fonction pour effacer les marqueurs de la carte
+    function clearMarkers() {
+        markers.forEach(marker => {
+            marker.setMap(null); // Enlever le marqueur de la carte
+        });
+        markers = []; // Vider la liste des marqueurs
+
+        if (polyline) {
+            polyline.setMap(null); // Enlever la polyligne de la carte
+            polyline = null; // Réinitialiser la polyligne
+        }
+    }
+
+    // Fonction pour centrer la carte sur les marqueurs
+    function centerMapOnMarkers(markersData) {
+        if (markersData.length === 0) return;
+
+        const bounds = new google.maps.LatLngBounds();
+        markersData.forEach(markerData => {
+            bounds.extend(new google.maps.LatLng(markerData.lat, markerData.lng));
+        });
+        map.fitBounds(bounds); // Ajuster la vue de la carte pour inclure tous les marqueurs
+    }
+
+    // Fonction pour dessiner une polyligne reliant les marqueurs
+    function drawPolyline(markersData) {
+        const path = markersData.map(markerData => ({ lat: markerData.lat, lng: markerData.lng }));
+
+        polyline = new google.maps.Polyline({
+            path: path,
+            geodesic: true,
+            strokeColor: '#FF0000', // Couleur de la polyligne
+            strokeOpacity: 0.5,
+            strokeWeight: 3, // Épaisseur de la polyligne
+        });
+
+        polyline.setMap(map); // Ajouter la polyligne à la carte
+    }
+
+    window.initMap = initMap;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+[
+    {
+      "id": "1",
+      "name": "Course 1",
+      "markers": [
+          { "lat": 48.85839134355409, "lng": 2.294468569528237, "content": "Point de départ : Tour Effeil." },
+          { "lat": 48.860387493216216, "lng": 2.291263575462092, "content": "Marqueur 1 : Pont d'Iéna." },
+          { "lat": 48.86235384876152, "lng": 2.2936816421062907, "content": "Marqueur 2 : Port Debilly." },
+          { "lat": 48.86352407839304,  "lng": 2.297285686206496, "content": "Marqueur 3 : Pallais de Tokyo." },
+          { "lat": 48.86408110741323,  "lng": 2.3002847743259163, "content": "Marqueur 4 : Flamme de la Liberté." },
+          { "lat": 48.864186203018185, "lng": 2.305073098636275, "content": "Marqueur 5 : Monument à Mickiewicz." },
+          { "lat": 48.86421550928454, "lng": 2.3101838833243935, "content": "Marqueur 6 : Monument du Génocide Arménien, hommage au révérend Père Komitas." },
+          { "lat": 48.86446722248571,  "lng": 2.318868499372574, "content": "Marqueur 7 : Quai des Tuileries." },
+          { "lat": 48.86404164182981,  "lng": 2.320267268851166, "content": "Marqueur 8 : Quai des Tuileries." },
+          { "lat": 48.86463584179365, "lng": 2.3207922585583796, "content": "Marqueur 9 : Place de la Concorde." },
+          { "lat": 48.86525737164677, "lng": 2.3219578613344027, "content": "Point d'arrivée : Obélisque de Louxor." }
+      ]
+    },
+    {
+        "id": "2",
+        "name": "Course 2",
+        "markers": [
+          { "lat": 47.61618122339593, "lng": 1.5170756945504946, "content": "Point de départ : Chateau de Chambord." },
+          { "lat": 47.614188643316616, "lng": 1.5196477842739209, "content": "Marqueur 1 : Avenue du Roi." },
+          { "lat": 47.61408133377678,  "lng": 1.518987737170716, "content": "Marqueur 2 : Parc à proximité." },
+          { "lat": 47.61332449378555,  "lng": 1.5181694671255586, "content": "Marqueur 3 : Rue de la grange au Dîmes." },
+          { "lat": 47.61234741503142, "lng":  1.5192587935176958, "content": "Marqueur 4 : Route de Bracieux." },
+          { "lat": 47.60744485947891,  "lng": 1.5212249296220253, "content": "Marqueur 5 : Route de Bracieux." },
+          { "lat": 47.60292131675507,  "lng": 1.523028197883469, "content": "Marqueur 6 : Route de Bracieux." },
+          { "lat": 47.60245236392582,   "lng": 1.522593218669301, "content": "Marqueur 7 : Route Henri V." },
+          { "lat": 47.599152628200855, "lng": 1.5185964528046523, "content": "Marqueur 8 : Route Henri V." },
+          { "lat": 47.594793845961064, "lng": 1.5132022978233812, "content": "Point d'arrivée : Rond de Henri V." }
+        ]
+    },
+    {
+        "id": "3",
+        "name": "Course 3",
+        "markers": [
+          { "lat": 43.584337173808066,  "lng":1.434426190136, "content": "Point de départ : Stadium de Toulouse." },
+          { "lat": 43.58415889219179,  "lng":1.4392626799422807, "content": "Marqueur 1 : Pont du Garigliano." },
+          { "lat": 43.58527269593892,  "lng": 1.4393347859971495, "content": "Marqueur 2 : Chemin - Berge de la Garonne." },
+          { "lat": 43.587044280931664,  "lng": 1.4390109003000011,  "content": "Marqueur 3 : Chemin - Berge de la Garonne." },
+          { "lat": 43.58801394858872,  "lng": 1.439231324555279,  "content": "Marqueur 4 : Chemin - Berge de la Garonne." },
+          { "lat": 43.58881058823842,  "lng": 1.4397568486141998, "content": "Marqueur 5 : Chemin - Berge de la Garonne." },
+          { "lat": 43.58982205850472,  "lng": 1.4406137392451552, "content": "Marqueur 6 : Chemin - Berge de la Garonne." },
+          { "lat": 43.59209378338396,   "lng": 1.4414661500160026, "content": "Marqueur 7 : Pont Saint-Michel." },
+          { "lat": 43.59208462538928,  "lng": 1.4424629573935237, "content": "Marqueur 8 : Alléé Paul Feuga." },
+          { "lat": 43.59422452068306, "lng":  1.4483606444161872, "content": "Marqueur 9 : Église Saint-Exupère de Toulouse" },
+          { "lat": 43.59581618936589,  "lng": 1.4525701533950903, "content": "Point d'arrivée : Grand ROnd - Square Boulingrin." }
+        ]
+    }
+  ]

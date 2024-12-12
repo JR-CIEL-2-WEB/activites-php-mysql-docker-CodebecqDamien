@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Google Maps</title>
+    <style>
+        #map {
+            height: 80%;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #course-select {
+            margin: 20px;
+        }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7Y32T_PJHZxYcK3BJYJFNwSl6cuvLXpo&callback=initMap" async defer></script>
+</head>
+<body>
+
+<h1>Choisissez une course</h1>
+<select id="course-select">
+    <option value="">Sélectionnez une course</option>
+    <option value="1">Course 1</option>
+    <option value="2">Course 2</option>
+    <option value="3">Course 3</option>
+</select>
+
+<div id="map"></div>
+
+<script>
+    let currentInfoWindow = null;
+    let map;
+    let markers = [];
+    let polyline;
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 14,
+            center: { lat: 48.85839134355409, lng: 2.294468569528237 } // Position initiale (Tour Eiffel)
+        });
+
+        // Ajouter un écouteur d'événement pour le menu déroulant
+        document.getElementById('course-select').addEventListener('change', function() {
+            const selectedCourseId = this.value;
+            if (selectedCourseId) {
+                fetch('courses.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        const selectedCourse = data.find(course => course.id === selectedCourseId);
+                        if (selectedCourse) {
+                            clearMarkers(); // Effacer les marqueurs actuels
+                            addMarkers(selectedCourse.markers, map); // Ajouter les nouveaux marqueurs
+                            centerMapOnMarkers(selectedCourse.markers); // Centrer la carte sur les marqueurs
+                            drawPolyline(selectedCourse.markers); // Relier les marqueurs avec une polyligne
+                        }
+                    })
+                    .catch(error => console.error('Erreur lors du chargement des données JSON:', error));
+            } else {
+                clearMarkers();
+            }
+        });
+    }
+
+    function addMarkers(markersData, map) {
+        markersData.forEach(markerData => {
+            const position = {
+                lat: markerData.lat,
+                lng: markerData.lng
+            };
+
+            const marker = new google.maps.Marker({
+                position: position,
+                map: map,
+                title: markerData.content
+            });
+
+            markers.push(marker);
+
+            const infowindow = new google.maps.InfoWindow({
+                content: markerData.content,
+                ariaLabel: markerData.content
+            });
+
+            marker.addListener("click", () => {
+                if (currentInfoWindow) {
+                    currentInfoWindow.close();
+                }
+                infowindow.open(map, marker);
+                currentInfoWindow = infowindow;
+            });
+        });
+    }
+
+    function clearMarkers() {
+        markers.forEach(marker => marker.setMap(null));
+        markers = [];
+        if (polyline) {
+            polyline.setMap(null);
+            polyline = null;
+        }
+    }
+
+    function centerMapOnMarkers(markersData) {
+        if (markersData.length === 0) return;
+        const bounds = new google.maps.LatLngBounds();
+        markersData.forEach(markerData => {
+            bounds.extend(new google.maps.LatLng(markerData.lat, markerData.lng));
+        });
+        map.fitBounds(bounds);
+    }
+
+    function drawPolyline(markersData) {
+        const path = markersData.map(markerData => ({
+            lat: markerData.lat,
+            lng: markerData.lng
+        }));
+
+        polyline = new google.maps.Polyline({
+            path: path,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.5,
+            strokeWeight: 3
+        });
+
+        polyline.setMap(map);
+    }
+
+    window.initMap = initMap;
+</script>
+
+</body>
+</html>

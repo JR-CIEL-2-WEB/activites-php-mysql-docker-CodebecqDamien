@@ -82,7 +82,7 @@ if (isset($_POST['t'])) {
         // Fonction pour envoyer le tableau au serveur
         function sendData() {
             $.ajax({
-                url: '', // Envoie au même fichier
+                url: 'https://61f47b00-9496-420c-98a5-40c48a9c0bb5.mock.pstmn.io', // Envoie au même fichier
                 method: 'POST',
                 data: {t: tableau}, // Envoi du tableau sous forme de POST
                 dataType: 'json',

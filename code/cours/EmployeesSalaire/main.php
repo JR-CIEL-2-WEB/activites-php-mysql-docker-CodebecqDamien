@@ -1,9 +1,9 @@
 <?php
 // Connexion à la base de données
-$host = 'mysql';  // Remplacez par l'adresse de votre serveur
+$host = 'mysql';
 $dbname = 'appdb';
-$username = 'user';    // Remplacez par votre nom d'utilisateur
-$password = 'password';        // Remplacez par votre mot de passe
+$username = 'user';
+$password = 'password';
 
 try {
     $pdo = new PDO("mysql:host=mysql;port=3306;dbname=$dbname", $username, $password);
@@ -58,31 +58,9 @@ $salairesTries = tri_selection($salaires);
 // Calculer la médiane
 $mediane = medianne($salairesTries);
 
-// Retourner la médiane au format JSON pour l'afficher dans le DOM
+// Spécifier que le contenu est en JSON
+header('Content-Type: application/json');
+
+// Retourner la médiane au format JSON
 echo json_encode(['mediane' => $mediane]);
-
 ?>
-
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Médiane des salaires</title>
-</head>
-<body>
-    <div id="medianne"></div>
-
-    <script>
-        // Fonction pour appeler le serveur PHP et récupérer la médiane
-        fetch('main.php')
-            .then(response => response.json())
-            .then(data => {
-                // Afficher la médiane dans la div avec l'ID 'medianne'
-                document.getElementById('medianne').innerText = "La médiane des salaires est : " + data.medianne;
-            })
-            .catch(error => console.error('Erreur:', error));
-    </script>
-</body>
-</html>

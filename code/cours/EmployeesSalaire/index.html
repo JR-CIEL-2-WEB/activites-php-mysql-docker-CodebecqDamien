@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Médiane des salaires</title>
+</head>
+<body>
+    <div id="medianne"></div>
+
+    <script>
+        // Fonction pour appeler le serveur PHP et récupérer la médiane
+        fetch('main.php')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); // Vérifiez ici la structure de `data`
+                // Afficher la médiane dans la div avec l'ID 'medianne'
+                document.getElementById('medianne').innerText = "La médiane des salaires est : " + data.mediane;
+            })
+            .catch(error => console.error('Erreur:', error));
+    </script>
+    
+</body>
+</html>

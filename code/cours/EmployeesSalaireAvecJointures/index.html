@@ -56,15 +56,15 @@
             background-color: #c0392b;
         }
 
-        td.edit-button {
+        .edit-button {
             background-color: #f39c12;
         }
 
-        td.edit-button:hover {
+        .edit-button:hover {
             background-color: #e67e22;
         }
 
-        #add-employee-form input, #edit-employee-form input {
+        input {
             padding: 8px;
             margin: 5px 0;
             width: 200px;
@@ -73,7 +73,7 @@
             border-radius: 4px;
         }
 
-        #add-employee-form button, #edit-employee-form button {
+        button {
             background-color: #2ecc71;
             color: white;
             padding: 10px 20px;
@@ -83,7 +83,7 @@
             cursor: pointer;
         }
 
-        #add-employee-form button:hover, #edit-employee-form button:hover {
+        button:hover {
             background-color: #27ae60;
         }
 
@@ -195,7 +195,7 @@
             let salaire = document.getElementById('edit-salaire').value;
 
             fetch('main.php', {
-                method: 'PUT',
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id, nom_complet, adresse, salaire })
             })
